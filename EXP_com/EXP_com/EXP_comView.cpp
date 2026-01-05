@@ -12,6 +12,7 @@
 #include "ShapeFill.h"
 #include "InputDialog.h"
 #include "TransformMatrix.h"
+#include "PenThicknessDialog.h"
 #include "Resource.h"
 #include "ClipAlgorithm.h"
 
@@ -932,23 +933,8 @@ void CEXPcomView::OnPenThickness()
     CEXPcomDoc* pDoc = GetDocument();
     int nCurrentWidth = pDoc->GetCurrentStyle().GetLineWidth();
 
-    CMenu menu;
-    menu.CreatePopupMenu();
-    menu.AppendMenu(MF_STRING | (nCurrentWidth == 1 ? MF_CHECKED : 0), 1, _T("1 像素"));
-    menu.AppendMenu(MF_STRING | (nCurrentWidth == 2 ? MF_CHECKED : 0), 2, _T("2 像素"));
-    menu.AppendMenu(MF_STRING | (nCurrentWidth == 3 ? MF_CHECKED : 0), 3, _T("3 像素"));
-    menu.AppendMenu(MF_STRING | (nCurrentWidth == 5 ? MF_CHECKED : 0), 5, _T("5 像素"));
-    menu.AppendMenu(MF_STRING | (nCurrentWidth == 8 ? MF_CHECKED : 0), 8, _T("8 像素"));
-    menu.AppendMenu(MF_STRING | (nCurrentWidth == 10 ? MF_CHECKED : 0), 10, _T("10 像素"));
-
-    CPoint pt;
-    GetCursorPos(&pt);
-
-    int nSelected = menu.TrackPopupMenu(
-        TPM_LEFTALIGN | TPM_RETURNCMD | TPM_NONOTIFY,
-        pt.x, pt.y, this);
-
-    if (nSelected > 0)
+    int nSelected = nCurrentWidth;
+    if (ShowPenThicknessDialog(this, nCurrentWidth, nSelected))
     {
         pDoc->GetCurrentStyle().SetLineWidth(nSelected);
 
