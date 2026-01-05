@@ -118,7 +118,7 @@ bool CShape::HitTestRect(CRect rect)
     return intersect.IntersectRect(&bbox, &rect) != FALSE;
 }
 
-// Ê¹ÓÃ3x3Êý×é½øÐÐ±ä»»
+// Ê¹3x3Ð±ä»»
 void CShape::Transform(double matrix[3][3])
 {
     for (size_t i = 0; i < m_vecCtrlPts.size(); ++i)
@@ -135,10 +135,10 @@ void CShape::DrawControlPoints(CDC* pDC)
     if (m_vecCtrlPts.empty())
         return;
 
-    CBrush brushRed(RGB(255, 0, 0));
-    CBrush* pOldBrush = pDC->SelectObject(&brushRed);
-    CPen penBlack(PS_SOLID, 1, RGB(0, 0, 0));
-    CPen* pOldPen = pDC->SelectObject(&penBlack);
+    CBrush brushAccent(RGB(0, 158, 142));
+    CBrush* pOldBrush = pDC->SelectObject(&brushAccent);
+    CPen penFrame(PS_SOLID, 1, RGB(33, 37, 41));
+    CPen* pOldPen = pDC->SelectObject(&penFrame);
 
     const int nSize = 4;
     for (size_t i = 0; i < m_vecCtrlPts.size(); ++i)
@@ -147,10 +147,10 @@ void CShape::DrawControlPoints(CDC* pDC)
             m_vecCtrlPts[i].x + nSize, m_vecCtrlPts[i].y + nSize);
     }
 
-    // »æÖÆ¿ØÖÆ¶à±ßÐÎ
+    // Æ¿Æ¶
     if (m_vecCtrlPts.size() >= 1)
     {
-        CPen penGray(PS_DOT, 1, RGB(128, 128, 128));
+        CPen penGray(PS_DOT, 1, RGB(160, 170, 180));
         pDC->SelectObject(&penGray);
         pDC->MoveTo(m_vecCtrlPts[0]);
 
@@ -177,17 +177,17 @@ void CShape::DrawSelectionHandles(CDC* pDC)
     CRect bbox = GetBoundingBox();
     bbox.InflateRect(2, 2);
 
-    CPen penDash(PS_DOT, 1, RGB(0, 0, 255));
+    CPen penDash(PS_DASH, 1, RGB(64, 128, 255));
     CPen* pOldPen = pDC->SelectObject(&penDash);
     CBrush* pOldBrush = (CBrush*)pDC->SelectStockObject(NULL_BRUSH);
 
     pDC->Rectangle(&bbox);
 
-    CBrush brushBlue(RGB(0, 0, 255));
+    CBrush brushBlue(RGB(80, 140, 255));
     pDC->SelectObject(&brushBlue);
     pDC->SelectObject((CPen*)pDC->SelectStockObject(BLACK_PEN));
 
-    const int hs = 4;
+    const int hs = 5;
     CPoint handles[8] = {
         CPoint(bbox.left, bbox.top),
         CPoint((bbox.left + bbox.right) / 2, bbox.top),

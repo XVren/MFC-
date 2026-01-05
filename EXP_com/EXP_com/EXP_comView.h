@@ -58,6 +58,7 @@ protected:
     CShape* CreateShape(EShapeType type);
     void DrawSelectionRect(CDC* pDC);
     void DrawClipWindow(CDC* pDC);  // 绘制裁剪窗口
+    void DrawCanvasBackground(CDC* pDC, const CRect& rcClient);
 
 protected:
     DECLARE_MESSAGE_MAP()

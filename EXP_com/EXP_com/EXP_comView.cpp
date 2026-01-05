@@ -141,7 +141,7 @@ void CEXPcomView::OnDraw(CDC* pDC)
     memBitmap.CreateCompatibleBitmap(pDC, rcClient.Width(), rcClient.Height());
     CBitmap* pOldBitmap = memDC.SelectObject(&memBitmap);
 
-    memDC.FillSolidRect(&rcClient, RGB(255, 255, 255));
+    DrawCanvasBackground(&memDC, rcClient);
 
     // 绘制所有图形
     for (const auto& pShape : pDoc->GetShapes())
@@ -175,9 +175,42 @@ void CEXPcomView::OnDraw(CDC* pDC)
     memDC.DeleteDC();
 }
 
+void CEXPcomView::DrawCanvasBackground(CDC* pDC, const CRect& rcClient)
+{
+    const COLORREF clrBackground = RGB(245, 247, 250);
+    const COLORREF clrGrid = RGB(230, 234, 239);
+    const int nGridSize = 32;
+
+    pDC->FillSolidRect(&rcClient, clrBackground);
+
+    CPen gridPen(PS_SOLID, 1, clrGrid);
+    CPen* pOldPen = pDC->SelectObject(&gridPen);
+    int nOldBkMode = pDC->SetBkMode(TRANSPARENT);
+
+    for (int x = rcClient.left; x < rcClient.right; x += nGridSize)
+    {
+        pDC->MoveTo(x, rcClient.top);
+        pDC->LineTo(x, rcClient.bottom);
+    }
+
+    for (int y = rcClient.top; y < rcClient.bottom; y += nGridSize)
+    {
+        pDC->MoveTo(rcClient.left, y);
+        pDC->LineTo(rcClient.right, y);
+    }
+
+    CPen borderPen(PS_SOLID, 1, RGB(200, 210, 220));
+    pDC->SelectObject(&borderPen);
+    pDC->SelectStockObject(NULL_BRUSH);
+    pDC->Rectangle(&rcClient);
+
+    pDC->SetBkMode(nOldBkMode);
+    pDC->SelectObject(pOldPen);
+}
+
 void CEXPcomView::DrawSelectionRect(CDC* pDC)
 {
-    CPen pen(PS_DOT, 1, RGB(0, 0, 255));
+    CPen pen(PS_DASH, 1, RGB(64, 128, 255));
     CPen* pOldPen = pDC->SelectObject(&pen);
     CBrush* pOldBrush = (CBrush*)pDC->SelectStockObject(NULL_BRUSH);
 
