@@ -75,6 +75,9 @@
     <ClInclude Include="ClipAlgorithm.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PenThicknessDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EXP_com.cpp">
@@ -123,6 +126,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ClipAlgorithm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PenThicknessDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

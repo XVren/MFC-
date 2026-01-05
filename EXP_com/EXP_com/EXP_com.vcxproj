@@ -191,6 +191,7 @@
     <ClInclude Include="EXP_comView.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="InputDialog.h" />
+    <ClInclude Include="PenThicknessDialog.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="EXP_comDoc.cpp" />
     <ClCompile Include="EXP_comView.cpp" />
     <ClCompile Include="InputDialog.cpp" />
+    <ClCompile Include="PenThicknessDialog.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
